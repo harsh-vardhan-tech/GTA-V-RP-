@@ -1,36 +1,51 @@
-const canvas = document.getElementById("three-canvas");
-
 const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+const camera = new THREE.PerspectiveCamera(
+  75, window.innerWidth/window.innerHeight, 0.1, 1000
+);
+camera.position.z = 5;
 
 const renderer = new THREE.WebGLRenderer({
-  canvas: canvas,
-  alpha: true
+  canvas: document.getElementById("bg"),
+  alpha:true
 });
-renderer.setSize(window.innerWidth / 2, window.innerHeight);
+renderer.setSize(window.innerWidth, window.innerHeight);
 
-camera.position.z = 3;
+// Fire-like particles
+const particles = new THREE.BufferGeometry();
+const count = 4000;
+const pos = [];
 
-// Geometry
-const geometry = new THREE.BoxGeometry();
-const material = new THREE.MeshStandardMaterial({ color: 0xff0000 });
-const cube = new THREE.Mesh(geometry, material);
-scene.add(cube);
+for(let i=0;i<count;i++){
+  pos.push(
+    (Math.random()-0.5)*20,
+    Math.random()*20,
+    (Math.random()-0.5)*20
+  );
+}
 
-// Light
-const light = new THREE.PointLight(0xffffff, 1);
-light.position.set(5, 5, 5);
-scene.add(light);
+particles.setAttribute(
+  "position",
+  new THREE.Float32BufferAttribute(pos,3)
+);
 
-// Mouse hover effect
-document.addEventListener("mousemove", (e) => {
-  cube.rotation.y = e.clientX * 0.002;
-  cube.rotation.x = e.clientY * 0.002;
+const material = new THREE.PointsMaterial({
+  color:0xff0000,
+  size:0.05
 });
 
-// Animate
-function animate() {
+const fire = new THREE.Points(particles, material);
+scene.add(fire);
+
+function animate(){
   requestAnimationFrame(animate);
-  renderer.render(scene, camera);
+  fire.rotation.y += 0.001;
+  fire.rotation.x += 0.0005;
+  renderer.render(scene,camera);
 }
 animate();
+
+window.addEventListener("resize",()=>{
+  renderer.setSize(window.innerWidth,window.innerHeight);
+  camera.aspect = window.innerWidth/window.innerHeight;
+  camera.updateProjectionMatrix();
+});
