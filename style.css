@@ -1,0 +1,87 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background: black;
+  color: white;
+  overflow-x: hidden;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 50px;
+  background: #0a0a0a;
+}
+
+.logo {
+  font-size: 28px;
+  font-weight: bold;
+  color: red;
+}
+.logo span {
+  color: white;
+}
+
+.navbar ul {
+  list-style: none;
+  display: flex;
+  gap: 25px;
+}
+.navbar li {
+  cursor: pointer;
+  transition: 0.3s;
+}
+.navbar li:hover {
+  color: red;
+}
+
+.hero {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.hero-text {
+  z-index: 2;
+  padding-left: 80px;
+}
+.hero-text h1 {
+  font-size: 60px;
+  color: red;
+}
+.hero-text button {
+  padding: 12px 25px;
+  margin-top: 20px;
+  background: red;
+  border: none;
+  color: white;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.hero-text button:hover {
+  background: darkred;
+  transform: scale(1.05);
+}
+
+#three-canvas {
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.section {
+  padding: 80px;
+  text-align: center;
+}
+.section h2 {
+  color: red;
+  margin-bottom: 10px;
+}
+.section.dark {
+  background: #0f0f0f;
+}
